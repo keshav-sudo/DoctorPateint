@@ -1,0 +1,138 @@
+import { PrismaClient, Role, AppointmentStatus } from "@prisma/client";
+import { Request, Response } from "express";
+import { z } from "zod";
+
+const prisma = new PrismaClient();
+
+// Zod schema for validating the appointment booking request
+const bookAppointmentSchema = z.object({
+  doctorId: z.string().cuid("Invalid doctor ID format."),
+  when: z.string().datetime("Invalid date format. Please use ISO 8601 format."),
+});
+
+/**
+ * Patient books a new appointment with a doctor.
+ */
+export const bookAppointment = async (req: Request, res: Response) => {
+  try {
+    const validationResult = bookAppointmentSchema.safeParse(req.body);
+    if (!validationResult.success) {
+      return res.status(400).json({ errors: validationResult.error.flatten().fieldErrors });
+    }
+
+    const { doctorId, when } = validationResult.data;
+    const patientId = req.user!.id; // Get patient ID from the authenticated user (middleware)
+
+    // Create the new appointment in the database
+    const newAppointment = await prisma.appointment.create({
+      data: {
+        patientId,
+        doctorId,
+        when: new Date(when), // Use 'when' to match schema
+        status: AppointmentStatus.PENDING, // Use 'PENDING' to match schema
+      },
+    });
+
+    res.status(201).json({
+      message: "Appointment booked successfully!",
+      appointment: newAppointment,
+    });
+
+  } catch (error) {
+    console.error("Error booking appointment:", error);
+    res.status(500).json({ message: "An internal server error occurred." });
+  }
+};
+
+/**
+ * Fetches all appointments for the currently logged-in patient.
+ */
+export const getPatientAppointments = async (req: Request, res: Response) => {
+  try {
+    const patientId = req.user!.id;
+
+    const appointments = await prisma.appointment.findMany({
+      where: { patientId },
+      include: {
+        doctor: { // Include doctor's name
+          select: { name: true }, // Removed 'speciality' as it's not in the User schema
+        },
+      },
+      orderBy: { when: 'desc' } // Use 'when' to match schema
+    });
+
+    res.status(200).json({ data: appointments });
+
+  } catch (error) {
+    console.error("Error fetching patient appointments:", error);
+    res.status(500).json({ message: "An internal server error occurred." });
+  }
+};
+
+/**
+ * Fetches all appointments for the currently logged-in doctor.
+ */
+export const getDoctorAppointments = async (req: Request, res: Response) => {
+  try {
+    const doctorId = req.user!.id;
+
+    // Security check: Make sure the user is a doctor
+    if (req.user!.role !== Role.DOCTOR) {
+        return res.status(403).json({ message: "Forbidden: Only doctors can access this route." });
+    }
+
+    const appointments = await prisma.appointment.findMany({
+      where: { doctorId },
+      include: {
+        patient: { // Include patient's name
+          select: { name: true },
+        },
+      },
+       orderBy: { when: 'asc' } // Use 'when' to match schema
+    });
+
+    res.status(200).json({ data: appointments });
+
+  } catch (error) {
+    console.error("Error fetching doctor appointments:", error);
+    res.status(500).json({ message: "An internal server error occurred." });
+  }
+};
+
+/**
+ * Allows a doctor to mark an appointment as 'Completed'.
+ */
+export const markAppointmentCompleted = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params; // Get appointment ID from URL
+    const doctorId = req.user!.id;
+
+    // Security check: Make sure the user is a doctor
+    if (req.user!.role !== Role.DOCTOR) {
+        return res.status(403).json({ message: "Forbidden: Only doctors can perform this action." });
+    }
+    
+    // Find the appointment to ensure it belongs to this doctor
+    const appointment = await prisma.appointment.findFirst({
+        where: { id, doctorId }
+    });
+
+    if (!appointment) {
+        return res.status(404).json({ message: "Appointment not found or you do not have permission to modify it." });
+    }
+
+    const updatedAppointment = await prisma.appointment.update({
+      where: { id },
+      data: { status: AppointmentStatus.COMPLETED }, // Use 'COMPLETED' to match schema
+    });
+
+    res.status(200).json({
+      message: "Appointment marked as completed.",
+      appointment: updatedAppointment,
+    });
+
+  } catch (error) {
+    console.error("Error marking appointment as completed:", error);
+    res.status(500).json({ message: "An internal server error occurred." });
+  }
+};
