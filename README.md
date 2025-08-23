@@ -1,4 +1,4 @@
-# 🩺 DoctorPatient 
+# 🩺 DoctorPatient (Full Stack)
 
 # Api Deployed On Render
 
