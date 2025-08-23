@@ -20,11 +20,11 @@ This is the backend for the **DoctorPatient** application, deployed on Render:
 
 ## 🔑 **Available Endpoints**
 
-### **1️⃣ Authentication**
+### **1️⃣ Authentication**,
 
 | Method  | Endpoint             | Description                        | Body / Notes                                                              |
 | ------- | -------------------- | ---------------------------------- | ------------------------------------------------------------------------- |
-| 📝 POST | `/api/auth/register` | Register a new user                | `{ "name": "John Doe", "email": "john@example.com", "password": "****" }` |
+| 📝 POST | `/api/auth/register` | Register a new user                | `{ "name": "John Doe", "role" : "DOCTOR"  ,"email": "john@example.com", "password": "****" }` |
 | 🔑 POST | `/api/auth/login`    | Login user, returns JWT via cookie | `{ "email": "john@example.com", "password": "****" }`                     |
 | 🚪 POST | `/api/auth/logout`   | Logout user, clears JWT cookie     | No body required                                                          |
 
