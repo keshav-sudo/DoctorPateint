@@ -90,6 +90,7 @@ This is the backend for the **DoctorPatient** application, deployed on Render:
 npm run dev
 ```
 
+# SomeScreenshots From Ui
 <img width="1411" height="799" alt="Screenshot from 2025-08-23 16-22-25" src="https://github.com/user-attachments/assets/e2b72adb-1d80-420c-9c78-b64ee70ba8e5" />
 
 <img width="1920" height="918" alt="Screenshot from 2025-08-23 16-22-52" src="https://github.com/user-attachments/assets/745017dd-70a7-4935-b54a-9ba344e53432" />
