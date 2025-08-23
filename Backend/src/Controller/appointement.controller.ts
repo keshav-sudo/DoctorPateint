@@ -4,32 +4,36 @@ import { z } from "zod";
 
 const prisma = new PrismaClient();
 
-// Zod schema for validating the appointment booking request
+
 const bookAppointmentSchema = z.object({
   doctorId: z.string().cuid("Invalid doctor ID format."),
   when: z.string().datetime("Invalid date format. Please use ISO 8601 format."),
 });
 
-/**
- * Patient books a new appointment with a doctor.
- */
 export const bookAppointment = async (req: Request, res: Response) => {
   try {
+   
+    if (req.user && req.user.role !== "PATIENT") {
+      return res.status(403).json({
+        message: "Forbidden: Only patients can book appointments.",
+        success: false,
+      });
+    }
+    
     const validationResult = bookAppointmentSchema.safeParse(req.body);
     if (!validationResult.success) {
       return res.status(400).json({ errors: validationResult.error.flatten().fieldErrors });
     }
 
     const { doctorId, when } = validationResult.data;
-    const patientId = req.user!.id; // Get patient ID from the authenticated user (middleware)
+    const patientId = req.user!.id; 
 
-    // Create the new appointment in the database
     const newAppointment = await prisma.appointment.create({
       data: {
         patientId,
         doctorId,
-        when: new Date(when), // Use 'when' to match schema
-        status: AppointmentStatus.PENDING, // Use 'PENDING' to match schema
+        when: new Date(when),
+        status: AppointmentStatus.PENDING,
       },
     });
 
@@ -43,7 +47,6 @@ export const bookAppointment = async (req: Request, res: Response) => {
     res.status(500).json({ message: "An internal server error occurred." });
   }
 };
-
 /**
  * Fetches all appointments for the currently logged-in patient.
  */

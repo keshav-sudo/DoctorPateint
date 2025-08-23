@@ -1,28 +1,30 @@
 import express from "express";
 import cors from "cors";
-import cookieParser from "cookie-parser"; // <-- IMPORTANT
+import cookieParser from "cookie-parser";
 import Dotenv from "./Utils/Dotenv.js"; 
+
 import authRoutes from "./Routes/auth.routes.js";
 import userRoutes from "./Routes/user.routes.js";
+import doctorRoutes from "./Routes/doctor.route.js";
+import appointmentRoutes from "./Routes/appointment.route.js";
+import prescriptionRoutes from "./Routes/prescription.route.js";
 
 const app = express();
 
-// --- Middlewares ---
 app.use(cors({
-    origin: 'http://localhost:3000', // Change if your frontend is on a different port
+    origin: true, 
     credentials: true,
 }));
 app.use(express.json());
-app.use(cookieParser()); // <-- IMPORTANT: This must be here
+app.use(cookieParser());
 
-// --- API Routes ---
 app.use("/api/auth", authRoutes);
-app.use("/api/user", userRoutes , ()=> {
-  console.log("hittes")
-});
+app.use("/api/user", userRoutes);
+app.use("/api/doctors", doctorRoutes);
+app.use("/api/appointments", appointmentRoutes);
+app.use("/api/prescriptions", prescriptionRoutes);
 
-// --- Start Listening ---
 const PORT = Dotenv.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`✅ Your App is listening on port ${PORT}`);
+  console.log(` Your App is listening on port ${PORT}`);
 });
