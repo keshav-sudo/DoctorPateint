@@ -14,11 +14,7 @@ if (!Dotenv.JWT_SECRET) {
 const JWT_SECRET: string = Dotenv.JWT_SECRET;
 const prisma = new PrismaClient();
 
-// --- Controller Functions ---
 
-/**
- * Registers a new user, hashes their password, and sets the JWT in a secure cookie.
- */
 export const register = async (req: Request, res: Response) => {
   try {
     const validationResult = registerSchema.safeParse(req.body);
@@ -44,15 +40,14 @@ export const register = async (req: Request, res: Response) => {
     const payload = { id: newUser.id, role: newUser.role };
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1d' });
 
-    // 🛑 FIX: Set the JWT in a secure, HTTP-only cookie.
     res.cookie('token', token, {
-        httpOnly: true, // The cookie cannot be accessed by client-side scripts
-        secure: process.env.NODE_ENV === 'production', // Use secure cookies in production (HTTPS)
-        sameSite: 'strict', // Helps mitigate CSRF attacks
-        maxAge: 24 * 60 * 60 * 1000 // 1 day
+        httpOnly: true, 
+        secure: process.env.NODE_ENV === 'production', 
+        sameSite: 'strict', 
+        maxAge: 24 * 60 * 60 * 1000 
     });
 
-    // The token is no longer sent in the response body for security.
+    
     res.status(201).json({
       message: "User registered successfully.",
       user: {
@@ -69,9 +64,7 @@ export const register = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * Logs in an existing user and sets the JWT in a secure cookie.
- */
+
 export const login = async (req: Request, res: Response) => {
   try {
 
@@ -94,12 +87,12 @@ export const login = async (req: Request, res: Response) => {
     const payload = { id: user.id, role: user.role };
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1d' });
 
-    // 🛑 FIX: Set the JWT in a secure, HTTP-only cookie.
+
     res.cookie('token', token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
-        maxAge: 24 * 60 * 60 * 1000 // 1 day
+        maxAge: 24 * 60 * 60 * 1000 
     });
 
     res.status(200).json({
@@ -118,12 +111,10 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * Logs out a user by clearing the JWT cookie.
- */
+
 export const logout = async (req: Request, res: Response) => {
   try {
-    // 🛑 FIX: Clear the cookie to log the user out.
+   
     res.clearCookie('token');
     res.status(200).json({ message: "User logged out successfully." });
   } catch (error) {

@@ -47,9 +47,8 @@ export const bookAppointment = async (req: Request, res: Response) => {
     res.status(500).json({ message: "An internal server error occurred." });
   }
 };
-/**
- * Fetches all appointments for the currently logged-in patient.
- */
+
+
 export const getPatientAppointments = async (req: Request, res: Response) => {
   try {
     const patientId = req.user!.id;
@@ -57,11 +56,11 @@ export const getPatientAppointments = async (req: Request, res: Response) => {
     const appointments = await prisma.appointment.findMany({
       where: { patientId },
       include: {
-        doctor: { // Include doctor's name
-          select: { name: true }, // Removed 'speciality' as it's not in the User schema
+        doctor: { 
+          select: { name: true }, 
         },
       },
-      orderBy: { when: 'desc' } // Use 'when' to match schema
+      orderBy: { when: 'desc' } 
     });
 
     res.status(200).json({ data: appointments });
@@ -72,14 +71,11 @@ export const getPatientAppointments = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * Fetches all appointments for the currently logged-in doctor.
- */
+
 export const getDoctorAppointments = async (req: Request, res: Response) => {
   try {
     const doctorId = req.user!.id;
 
-    // Security check: Make sure the user is a doctor
     if (req.user!.role !== Role.DOCTOR) {
         return res.status(403).json({ message: "Forbidden: Only doctors can access this route." });
     }
@@ -87,11 +83,11 @@ export const getDoctorAppointments = async (req: Request, res: Response) => {
     const appointments = await prisma.appointment.findMany({
       where: { doctorId },
       include: {
-        patient: { // Include patient's name
+        patient: { 
           select: { name: true },
         },
       },
-       orderBy: { when: 'asc' } // Use 'when' to match schema
+       orderBy: { when: 'asc' } 
     });
 
     res.status(200).json({ data: appointments });
@@ -102,20 +98,18 @@ export const getDoctorAppointments = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * Allows a doctor to mark an appointment as 'Completed'.
- */
+
 export const markAppointmentCompleted = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params; // Get appointment ID from URL
+    const { id } = req.params; 
     const doctorId = req.user!.id;
 
-    // Security check: Make sure the user is a doctor
+   
     if (req.user!.role !== Role.DOCTOR) {
         return res.status(403).json({ message: "Forbidden: Only doctors can perform this action." });
     }
     
-    // Find the appointment to ensure it belongs to this doctor
+    
     const appointment = await prisma.appointment.findFirst({
         where: { id, doctorId }
     });
@@ -126,7 +120,7 @@ export const markAppointmentCompleted = async (req: Request, res: Response) => {
 
     const updatedAppointment = await prisma.appointment.update({
       where: { id },
-      data: { status: AppointmentStatus.COMPLETED }, // Use 'COMPLETED' to match schema
+      data: { status: AppointmentStatus.COMPLETED }, 
     });
 
     res.status(200).json({
