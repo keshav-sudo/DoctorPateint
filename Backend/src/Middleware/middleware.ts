@@ -13,7 +13,7 @@ export const middleware = (req: Request, res: Response, next: NextFunction) => {
     return res.status(500).json({ message: "Internal Server Error: Server is not configured correctly." });
   }
 
-  // Read the token from the cookie
+  
   const token = req.cookies.token;
 
   if (!token) {
@@ -24,16 +24,14 @@ export const middleware = (req: Request, res: Response, next: NextFunction) => {
   }
 
   try {
-    // Verify the token
+
     const decoded = jwt.verify(token, JWT_SECRET) as Payload;
 
-    // Attach the user payload to the request object
+    
     req.user = decoded;
     
-    // Proceed to the next handler (your controller)
     next();
   } catch (error) {
-    // This will catch an invalid or expired token
     return res.status(401).json({
       message: "Unauthorized: Invalid token.",
       success: false,
