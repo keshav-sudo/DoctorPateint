@@ -16,7 +16,7 @@ This is the backend for the **DoctorPatient** application, deployed on Render:
 * 🛡️ **JWT** – Authentication & Authorization
 * 🍪 **res.cookie** – Storing JWT tokens in HTTP cookies
 * 🩺 **Node.js + Express** – REST API backend
-* 🐘 **PostgreSQL ** – Database
+* 🐘 **PostgreSQL** – Database
 
 ---
 
