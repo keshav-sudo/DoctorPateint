@@ -2,11 +2,12 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js","scripts": {
-  "dev": "nodemon --watch src --exec node --loader ts-node/esm src/index.ts",
-  "build": "tsc",
-  "start": "node dist/index.js"
-},
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --watch src --exec node --loader ts-node/esm src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
