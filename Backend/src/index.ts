@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express"; 
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import Dotenv from "./Utils/Dotenv.js"; 
@@ -18,11 +18,21 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
+
+
+
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/doctors", doctorRoutes);
 app.use("/api/appointments", appointmentRoutes);
 app.use("/api/prescriptions", prescriptionRoutes);
+
+
+app.get("/", (req: Request, res: Response) => {
+  res.status(200).json({
+    message: "All is ok ✅"
+  });
+});
 
 const PORT = Dotenv.PORT || 5000;
 app.listen(PORT, () => {

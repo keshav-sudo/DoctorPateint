@@ -5,9 +5,6 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import Dotenv from "../Utils/Dotenv.js";
 
-// --- Setup and Validation ---
-
-// This check ensures the server won't start without the secret key.
 if (!Dotenv.JWT_SECRET) {
     throw new Error("FATAL ERROR: JWT_SECRET is not defined in the .env file.");
 }
