@@ -53,7 +53,7 @@ const handleLogin = async () => {
 
   return (
     <div className='flex items-center justify-center min-h-screen w-full'>
-      <div className="border-2 rounded-2xl shadow-lg p-8 w-[90%] sm:w-[60%] md:w-[40%] lg:w-[25%] h-[50vh] flex flex-col items-center">
+      <div className="border-2 rounded-2xl p-6  w-full max-w-[400px] min-w-[280px] h-auto max-h-[70vh] flex flex-col items-center justify-center mx-auto my-8">
         <h1 className='text-2xl'>Login With Email</h1>
 
         <div className='flex flex-col gap-6 mt-10'>

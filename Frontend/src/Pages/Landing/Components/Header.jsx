@@ -1,15 +1,10 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { authState } from '../../../atom/recoil.auth';
+import { useRecoilValue } from 'recoil';
 
 function Header() {
-
-    const isAuthenticated = true;
-    const user = {
-       id: 12,
-        email: "thesharmakeshav@gmail",
-       
-        role: "DOCTOR",
-    }
+       const {isAuthenticated , user}  = useRecoilValue(authState);
     const navigate = useNavigate();
 
   return (
