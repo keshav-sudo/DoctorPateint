@@ -12,8 +12,8 @@ import prescriptionRoutes from "./Routes/prescription.route.js";
 const app = express();
 
 app.use(cors({
-    origin: true, 
-    credentials: true,
+  origin: "http://localhost:5173",
+  credentials: true,
 }));
 app.use(express.json());
 app.use(cookieParser());
