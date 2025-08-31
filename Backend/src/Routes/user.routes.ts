@@ -4,6 +4,7 @@ import { middleware } from "../Middleware/middleware.js";
 
 const router = Router();
 
-router.get("/me", middleware, getme);
+// router.get("/me", middleware, getme);
 router.get("/me/dash", middleware, getall);
 export default router;
+ 

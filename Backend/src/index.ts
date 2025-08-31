@@ -12,13 +12,12 @@ import prescriptionRoutes from "./Routes/prescription.route.js";
 const app = express();
 
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: ["http://localhost:5173" , "http://localhost:5000"],
   credentials: true,
 }));
+
 app.use(express.json());
 app.use(cookieParser());
-
-
 
 
 app.use("/api/auth", authRoutes);
@@ -33,6 +32,7 @@ app.get("/", (req: Request, res: Response) => {
     message: "All is ok ✅"
   });
 });
+
 
 const PORT = Dotenv.PORT || 5000;
 app.listen(PORT, () => {
