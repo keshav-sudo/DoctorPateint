@@ -5,8 +5,8 @@ import { Payload } from "../Types/express.js";
 
 export const middleware = (req: Request, res: Response, next: NextFunction) => {
     console.log("entered");
-  const JWT_SECRET = Dotenv.JWT_SECRET;
-  console.log(JWT_SECRET);
+    const JWT_SECRET = Dotenv.JWT_SECRET;
+    console.log(JWT_SECRET);
 
   if (!JWT_SECRET) {
     console.error("FATAL ERROR: JWT_SECRET is not defined. Check your .env file and server start process.");

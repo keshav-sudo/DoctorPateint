@@ -84,13 +84,13 @@ export const login = async (req: Request, res: Response) => {
     const payload = { id: user.id, role: user.role };
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1d' });
 
-
     res.cookie('token', token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 24 * 60 * 60 * 1000 
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production', // true only in prod
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // lax in dev, none in prod
+    maxAge: 24 * 60 * 60 * 1000
     });
+ 
 
     res.status(200).json({
       message: "User logged in successfully.",
