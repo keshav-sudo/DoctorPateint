@@ -12,7 +12,7 @@ import prescriptionRoutes from "./Routes/prescription.route.js";
 const app = express();
 
 app.use(cors({
-  origin: ["https://doctor-pateint-35ouo3s2u-clinixs-projects-7de05721.vercel.app/" , "https://doctor-pateint.vercel.app/"],
+  origin: ["https://doctor-pateint-35ouo3s2u-clinixs-projects-7de05721.vercel.app" , "https://doctor-pateint.vercel.app"],
   credentials: true,
 }));
 
