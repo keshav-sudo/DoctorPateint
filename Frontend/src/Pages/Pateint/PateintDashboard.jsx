@@ -48,7 +48,7 @@ function PateintDashboard() {
   const closeModal = () => setSelectedDoctor(null);
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950">
+    <div className="min-h-screen flex flex-col bg-black">
       <Header />
 
       <div className="flex w-full min-h-screen">
