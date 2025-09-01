@@ -18,7 +18,7 @@ function Header() {
 
             <div className="flex font-semibold gap-4">
               <button className=" text-2xl cursor-pointer " onClick={()=>{navigate("/doctor-dashboard")}}>Doctor</button>
-              <button className=" text-2xl cursor-pointer" onClick={()=>{navigate("/pateint-dashboard")}}>Pateint</button>
+              <button className=" text-2xl cursor-pointer" onClick={()=>{navigate("/patient-dashboard")}}>Pateint</button>
             </div>
 
             <div className='mr-32 font-semibold  '>
