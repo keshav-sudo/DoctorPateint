@@ -21,6 +21,6 @@ function Error() {
       </div>
     </div>
   );
-}a
+}
 
 export default Error;
