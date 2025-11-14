@@ -69,17 +69,17 @@ const handleSignUp = async () => {
 };
 
   return (
- <div className='flex items-center justify-center min-h-screen w-full '>
-<div className="border-2 rounded-2xl p-6  w-full max-w-[400px] min-w-[280px] h-auto max-h-[70vh] flex flex-col items-center justify-center mx-auto my-8">
-    <div >
-      <h1 className='text-2xl'> SignUp With Email</h1>
+ <div className='flex items-center justify-center min-h-screen w-full px-4'>
+<div className="border-2 rounded-2xl p-4 sm:p-6 w-full max-w-[400px] min-w-[280px] h-auto max-h-[70vh] flex flex-col items-center justify-center mx-auto my-8">
+    <div>
+      <h1 className='text-xl sm:text-2xl text-center'>SignUp With Email</h1>
     </div>
-    <div className='flex flex-col  gap-6 mt-10'>
-       <Input  className="w-80" value={name}  onChange={(e) => setname(e.target.value)} placeholder="Name" type="text" />
-       <Input  className="w-80" value={email} onChange={(e) => setemail(e.target.value)} placeholder="Email" type="text" />
-       <Input  className="w-80" value={password} onChange={(e) => setpassword(e.target.value)} placeholder="Password"  />
+    <div className='flex flex-col gap-4 sm:gap-6 mt-6 sm:mt-10 w-full'>
+       <Input className="w-full" value={name} onChange={(e) => setname(e.target.value)} placeholder="Name" type="text" />
+       <Input className="w-full" value={email} onChange={(e) => setemail(e.target.value)} placeholder="Email" type="text" />
+       <Input className="w-full" value={password} onChange={(e) => setpassword(e.target.value)} placeholder="Password" />
         <Select value={role} onValueChange={setrole}>
-        <SelectTrigger className="w-80">
+        <SelectTrigger className="w-full">
           <SelectValue placeholder="Select Role" />
         </SelectTrigger>
         <SelectContent>
@@ -89,14 +89,14 @@ const handleSignUp = async () => {
       </Select>
     </div>
 
-    <div className='mt-10'>
-      <Button variant="outline" onClick={handleSignUp } className="w-50 bg-black">
+    <div className='mt-6 sm:mt-10 w-full'>
+      <Button variant="outline" onClick={handleSignUp} className="w-full bg-black">
         SignUp
       </Button>
     </div>
 
-    <div className='flex mt-5'>
-      <h1>  You have an account?</h1>
+    <div className='flex flex-wrap justify-center mt-5 gap-1 text-sm sm:text-base'>
+      <h1>You have an account?</h1>
       <span className='hover:underline cursor-pointer' onClick={()=>{navigate("/login")}}>
         Login
       </span>

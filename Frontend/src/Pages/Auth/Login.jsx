@@ -52,20 +52,20 @@ const handleLogin = async () => {
 };
 
   return (
-    <div className='flex items-center justify-center min-h-screen w-full'>
-      <div className="border-2 rounded-2xl p-6  w-full max-w-[400px] min-w-[280px] h-auto max-h-[70vh] flex flex-col items-center justify-center mx-auto my-8">
-        <h1 className='text-2xl'>Login With Email</h1>
+    <div className='flex items-center justify-center min-h-screen w-full px-4'>
+      <div className="border-2 rounded-2xl p-4 sm:p-6 w-full max-w-[400px] min-w-[280px] h-auto max-h-[70vh] flex flex-col items-center justify-center mx-auto my-8">
+        <h1 className='text-xl sm:text-2xl text-center'>Login With Email</h1>
 
-        <div className='flex flex-col gap-6 mt-10'>
+        <div className='flex flex-col gap-4 sm:gap-6 mt-6 sm:mt-10 w-full'>
           <Input
-            className="w-80"
+            className="w-full"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
             type="email"
           />
           <Input
-            className="w-80"
+            className="w-full"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
@@ -73,13 +73,13 @@ const handleLogin = async () => {
           />
         </div>
 
-        <div className='mt-10'>
-          <Button variant="outline" onClick={handleLogin} className="w-80 bg-black text-white">
+        <div className='mt-6 sm:mt-10 w-full'>
+          <Button variant="outline" onClick={handleLogin} className="w-full bg-black text-white">
             {isLoading ? "Loading..." : "Login"}
           </Button>
         </div>
 
-        <div className='flex mt-5 gap-2'>
+        <div className='flex flex-wrap justify-center mt-5 gap-1 sm:gap-2 text-sm sm:text-base'>
           <h1>Don't have an account?</h1>
           <span className='hover:underline cursor-pointer' onClick={() => navigate("/signup")}>
             SignUp

@@ -39,41 +39,26 @@ function Header() {
 
 
   return (
-    <div className="w-full h-16 border-b items-center flex justify-between ">
-        <div className="flex gap-2 ">
-            <p className="text-2xl font-light ml-20 ">
-              Clinix Shepre
+    <div className="w-full h-16 border-b items-center flex justify-between px-4 md:px-8">
+        <div className="flex gap-2">
+            <p className="text-lg md:text-2xl font-light">
+              Clinix Sphere
             </p>
-             {/* <p className="text-2xl">
-              {user?.name }
-             </p>
-             <h2 className="">
-              {user?.role === "DOCTOR" ? "🩺" : "🛌" }
-             </h2>
-             */}
-
-          
         </div>
        
 
-        <div>
-           <p className="ml-30 font-bold">
-          How are you, {user?.name?.split(" ")[0] || "Guest" } ?
-
+        <div className="hidden sm:block">
+           <p className="font-bold text-sm md:text-base text-center">
+          How are you, {user?.name?.split(" ")[0] || "Guest"}?
         </p>
-          
         </div>
+
       <Button 
         onClick={handlelogout} 
-         className="hover:cursor-pointer px-10 border-1 border-neutral-400 ml-150"
-               >
+        className="hover:cursor-pointer px-4 md:px-10 border-1 border-neutral-400 text-sm md:text-base"
+      >
          Log Out
       </Button>
-
-
-        <div>
-
-        </div>
 
     </div>
   )
