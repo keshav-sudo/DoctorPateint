@@ -39,7 +39,7 @@ function Appointement({ isOpen, onClose, doctorId }) {
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center transition-opacity ${
+      className={`fixed inset-0 z-50 flex items-center justify-center transition-opacity px-4 ${
         isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
       }`}
     >
@@ -50,10 +50,10 @@ function Appointement({ isOpen, onClose, doctorId }) {
       />
 
       {/* Modal box */}
-      <div className="relative bg-black rounded-lg p-6 w-96 z-10">
-        <h2 className="text-xl font-semibold mb-4">Book Appointment</h2>
+      <div className="relative bg-black rounded-lg p-4 sm:p-6 w-full max-w-[400px] z-10">
+        <h2 className="text-lg sm:text-xl font-semibold mb-4">Book Appointment</h2>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <label className="flex flex-col">
+          <label className="flex flex-col text-sm sm:text-base">
             Select Date & Time:
             <input
               type="datetime-local"
@@ -66,10 +66,10 @@ function Appointement({ isOpen, onClose, doctorId }) {
             />
           </label>
           <div className="flex justify-end gap-2 mt-2">
-            <Button type="button" onClick={onClose} className="px-4 py-2 border rounded">
+            <Button type="button" onClick={onClose} className="px-3 sm:px-4 py-2 border rounded text-sm sm:text-base">
               Cancel
             </Button>
-            <Button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded">
+            <Button type="submit" className="px-3 sm:px-4 py-2 bg-blue-600 text-white rounded text-sm sm:text-base">
               Book
             </Button>
           </div>

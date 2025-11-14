@@ -13,6 +13,7 @@ function PateintDashboard() {
   const [loading, setLoading] = useRecoilState(loadingState);
   const [doctors, setDoctors] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const resolvedPath = useResolvedPath('');
   const isDashboardRoot = useMatch(resolvedPath.pathname);
@@ -51,20 +52,45 @@ function PateintDashboard() {
     <div className="min-h-screen flex flex-col bg-black">
       <Header />
 
-      <div className="flex w-full min-h-screen">
-        {/* Sidebar */}
-        <div className="w-[20%] border-r border-neutral-600">
+      <div className="flex w-full min-h-screen relative">
+        {/* Sidebar - mobile drawer and desktop fixed */}
+        <div className={`
+          fixed md:relative inset-y-0 left-0 z-30
+          w-64 md:w-[20%] 
+          transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} 
+          md:translate-x-0 
+          transition-transform duration-300 ease-in-out
+          border-r border-neutral-600 bg-black
+        `}>
           <SideBarforPat />
         </div>
 
+        {/* Overlay for mobile */}
+        {sidebarOpen && (
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-50 z-20 md:hidden"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+
         {/* Main Content */}
-        <div className="w-[80%] p-5 overflow-y-auto">
+        <div className="flex-1 w-full md:w-[80%] p-4 md:p-5 overflow-y-auto">
+          {/* Mobile menu button */}
+          <button 
+            className="md:hidden fixed top-20 left-4 z-40 bg-gray-800 p-2 rounded-md"
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+
           <Outlet />
 
           {isDashboardRoot && (
             <>
-              <div className="text-center my-7">
-                <h1 className="text-2xl font-semibold text-white">
+              <div className="text-center my-4 md:my-7">
+                <h1 className="text-xl md:text-2xl font-semibold text-white">
                   Appoint A Doctor Now
                 </h1>
               </div>
@@ -73,7 +99,7 @@ function PateintDashboard() {
                 <p className="text-white text-center mb-4">Loading doctors...</p>
               )}
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
                 {doctors.length > 0 ? (
                   doctors.map((doctor) => (
                     <DoctorShow
