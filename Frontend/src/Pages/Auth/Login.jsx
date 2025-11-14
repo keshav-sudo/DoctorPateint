@@ -52,37 +52,53 @@ const handleLogin = async () => {
 };
 
   return (
-    <div className='flex items-center justify-center min-h-screen w-full px-4'>
-      <div className="border-2 rounded-2xl p-4 sm:p-6 w-full max-w-[400px] min-w-[280px] h-auto max-h-[70vh] flex flex-col items-center justify-center mx-auto my-8">
-        <h1 className='text-xl sm:text-2xl text-center'>Login With Email</h1>
+    <div className='flex items-center justify-center min-h-screen w-full px-4 bg-gradient-to-br from-black via-gray-900 to-black relative overflow-hidden'>
+      {/* Blue glow effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute w-96 h-96 bg-blue-600/20 rounded-full blur-3xl top-0 left-1/4"></div>
+        <div className="absolute w-96 h-96 bg-cyan-600/20 rounded-full blur-3xl bottom-0 right-1/4"></div>
+      </div>
 
-        <div className='flex flex-col gap-4 sm:gap-6 mt-6 sm:mt-10 w-full'>
-          <Input
-            className="w-full"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-            type="email"
-          />
-          <Input
-            className="w-full"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            type="password"
-          />
+      <div className="border-2 border-blue-900/50 rounded-lg p-6 sm:p-10 w-full max-w-[480px] backdrop-blur-md bg-black/70 shadow-2xl shadow-blue-900/20 relative z-10">
+        <h1 className='text-2xl sm:text-3xl text-center font-bold tracking-wide mb-8 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent'>Login</h1>
+
+        <div className='flex flex-col gap-6 w-full'>
+          <div className='flex flex-col gap-3'>
+            <label className='text-sm font-semibold text-gray-300'>Email Address</label>
+            <Input
+              className="w-full bg-gray-900/50 border-2 border-blue-900/50 focus:border-blue-500 rounded-md h-12 text-white font-medium placeholder:text-gray-500"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              type="email"
+            />
+          </div>
+          <div className='flex flex-col gap-3'>
+            <label className='text-sm font-semibold text-gray-300'>Password</label>
+            <Input
+              className="w-full bg-gray-900/50 border-2 border-blue-900/50 focus:border-blue-500 rounded-md h-12 text-white font-medium placeholder:text-gray-500"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              type="password"
+            />
+          </div>
         </div>
 
-        <div className='mt-6 sm:mt-10 w-full'>
-          <Button variant="outline" onClick={handleLogin} className="w-full bg-black text-white">
-            {isLoading ? "Loading..." : "Login"}
+        <div className='mt-8 w-full'>
+          <Button 
+            onClick={handleLogin} 
+            className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 rounded-md h-12 font-bold text-base tracking-wide transition-all duration-300 shadow-lg shadow-blue-600/30"
+            disabled={isLoading}
+          >
+            {isLoading ? "Loading..." : "LOGIN"}
           </Button>
         </div>
 
-        <div className='flex flex-wrap justify-center mt-5 gap-1 sm:gap-2 text-sm sm:text-base'>
-          <h1>Don't have an account?</h1>
-          <span className='hover:underline cursor-pointer' onClick={() => navigate("/signup")}>
-            SignUp
+        <div className='flex flex-wrap justify-center mt-6 gap-1 text-sm font-medium text-gray-400'>
+          <span>Don't have an account?</span>
+          <span className='text-blue-400 hover:text-blue-300 cursor-pointer transition-colors font-semibold' onClick={() => navigate("/signup")}>
+            Sign Up
           </span>
         </div>
       </div>

@@ -39,25 +39,25 @@ function Header() {
 
 
   return (
-    <div className="w-full h-16 border-b items-center flex justify-between px-4 md:px-8">
+    <div className="w-full h-16 border-b-2 border-blue-900/30 items-center flex justify-between px-4 md:px-8 bg-black/90 backdrop-blur-sm shadow-lg shadow-blue-900/10">
         <div className="flex gap-2">
-            <p className="text-lg md:text-2xl font-light">
-              Clinix Sphere
+            <p className="text-lg md:text-xl font-bold tracking-wider bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+              CLINIX SPHERE
             </p>
         </div>
        
 
         <div className="hidden sm:block">
-           <p className="font-bold text-sm md:text-base text-center">
-          How are you, {user?.name?.split(" ")[0] || "Guest"}?
+           <p className="font-medium text-sm md:text-base text-gray-300">
+          Welcome, <span className="text-blue-400 font-bold">{user?.name?.split(" ")[0] || "Guest"}</span>
         </p>
         </div>
 
       <Button 
         onClick={handlelogout} 
-        className="hover:cursor-pointer px-4 md:px-10 border-1 border-neutral-400 text-sm md:text-base"
+        className="px-4 md:px-6 py-2 bg-transparent border-2 border-blue-900/50 hover:border-blue-500 rounded-md text-sm md:text-base font-semibold hover:bg-blue-600/10 transition-all duration-300"
       >
-         Log Out
+         LOGOUT
       </Button>
 
     </div>
