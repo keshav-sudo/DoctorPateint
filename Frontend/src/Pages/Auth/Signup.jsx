@@ -69,35 +69,57 @@ const handleSignUp = async () => {
 };
 
   return (
- <div className='flex items-center justify-center min-h-screen w-full px-4'>
-<div className="border-2 rounded-2xl p-4 sm:p-6 w-full max-w-[400px] min-w-[280px] h-auto max-h-[70vh] flex flex-col items-center justify-center mx-auto my-8">
+ <div className='flex items-center justify-center min-h-screen w-full px-4 bg-gradient-to-br from-black via-gray-900 to-black relative overflow-hidden'>
+      {/* Blue glow effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute w-96 h-96 bg-blue-600/20 rounded-full blur-3xl top-0 right-1/4"></div>
+        <div className="absolute w-96 h-96 bg-cyan-600/20 rounded-full blur-3xl bottom-0 left-1/4"></div>
+      </div>
+
+<div className="border-2 border-blue-900/50 rounded-lg p-6 sm:p-10 w-full max-w-[480px] backdrop-blur-md bg-black/70 shadow-2xl shadow-blue-900/20 relative z-10">
     <div>
-      <h1 className='text-xl sm:text-2xl text-center'>SignUp With Email</h1>
+      <h1 className='text-2xl sm:text-3xl text-center font-bold tracking-wide mb-8 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent'>Sign Up</h1>
     </div>
-    <div className='flex flex-col gap-4 sm:gap-6 mt-6 sm:mt-10 w-full'>
-       <Input className="w-full" value={name} onChange={(e) => setname(e.target.value)} placeholder="Name" type="text" />
-       <Input className="w-full" value={email} onChange={(e) => setemail(e.target.value)} placeholder="Email" type="text" />
-       <Input className="w-full" value={password} onChange={(e) => setpassword(e.target.value)} placeholder="Password" />
+    <div className='flex flex-col gap-6 w-full'>
+       <div className='flex flex-col gap-3'>
+         <label className='text-sm font-semibold text-gray-300'>Full Name</label>
+         <Input className="w-full bg-gray-900/50 border-2 border-blue-900/50 focus:border-blue-500 rounded-md h-12 text-white font-medium placeholder:text-gray-500" value={name} onChange={(e) => setname(e.target.value)} placeholder="Enter your name" type="text" />
+       </div>
+       <div className='flex flex-col gap-3'>
+         <label className='text-sm font-semibold text-gray-300'>Email Address</label>
+         <Input className="w-full bg-gray-900/50 border-2 border-blue-900/50 focus:border-blue-500 rounded-md h-12 text-white font-medium placeholder:text-gray-500" value={email} onChange={(e) => setemail(e.target.value)} placeholder="Enter your email" type="text" />
+       </div>
+       <div className='flex flex-col gap-3'>
+         <label className='text-sm font-semibold text-gray-300'>Password</label>
+         <Input className="w-full bg-gray-900/50 border-2 border-blue-900/50 focus:border-blue-500 rounded-md h-12 text-white font-medium placeholder:text-gray-500" value={password} onChange={(e) => setpassword(e.target.value)} placeholder="Enter your password" />
+       </div>
+       <div className='flex flex-col gap-3'>
+         <label className='text-sm font-semibold text-gray-300'>Select Your Role</label>
         <Select value={role} onValueChange={setrole}>
-        <SelectTrigger className="w-full">
-          <SelectValue placeholder="Select Role" />
+        <SelectTrigger className="w-full bg-gray-900/50 border-2 border-blue-900/50 focus:border-blue-500 rounded-md h-12 text-white font-medium">
+          <SelectValue placeholder="Choose your role" className="text-gray-500" />
         </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="DOCTOR">Doctor</SelectItem>
-          <SelectItem value="PATIENT">Patient</SelectItem>
+        <SelectContent className="bg-gray-900 border-2 border-blue-900/50 text-white font-medium">
+          <SelectItem value="DOCTOR" className="hover:bg-blue-600/20 cursor-pointer">Doctor</SelectItem>
+          <SelectItem value="PATIENT" className="hover:bg-blue-600/20 cursor-pointer">Patient</SelectItem>
         </SelectContent>
       </Select>
+       </div>
     </div>
 
-    <div className='mt-6 sm:mt-10 w-full'>
-      <Button variant="outline" onClick={handleSignUp} className="w-full bg-black">
-        SignUp
+    <div className='mt-8 w-full'>
+      <Button 
+        onClick={handleSignUp} 
+        className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 rounded-md h-12 font-bold text-base tracking-wide transition-all duration-300 shadow-lg shadow-blue-600/30"
+        disabled={loading}
+      >
+        {loading ? "Loading..." : "SIGN UP"}
       </Button>
     </div>
 
-    <div className='flex flex-wrap justify-center mt-5 gap-1 text-sm sm:text-base'>
-      <h1>You have an account?</h1>
-      <span className='hover:underline cursor-pointer' onClick={()=>{navigate("/login")}}>
+    <div className='flex flex-wrap justify-center mt-6 gap-1 text-sm font-medium text-gray-400'>
+      <span>Already have an account?</span>
+      <span className='text-blue-400 hover:text-blue-300 cursor-pointer transition-colors font-semibold' onClick={()=>{navigate("/login")}}>
         Login
       </span>
     </div>
