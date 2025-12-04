@@ -24,7 +24,7 @@ This is the backend for the **DoctorPatient** application, deployed on Render:
            
 ---
 
-## 🔑 **Available Endpoints**
+## 🔑 **Available Endpoints**        
 
 ### **1️⃣ Authentication**,
 
