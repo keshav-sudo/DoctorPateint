@@ -134,7 +134,7 @@ fetch(`${BASE_URL}/api/appointments/`, {
 ```
 
 ---
-
+        
 ### **4️⃣ Security & Notes**
 
 * 🔒 Passwords are hashed with **bcrypt**.
