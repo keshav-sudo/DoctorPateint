@@ -16,7 +16,7 @@ This is the backend for the **DoctorPatient** application, deployed on Render:
 
 * 🟦 **TypeScript** – Strongly typed backend
 * 🗄️ **Prisma ORM** – Database modeling & queries
-* 🔒 **bcrypt** – Password hashing for security
+* 🔒 **bcrypt** – Password hashing for security        
 * 🛡️ **JWT** – Authentication & Authorization
 * 🍪 **res.cookie** – Storing JWT tokens in HTTP cookies
 * 🩺 **Node.js + Express** – REST API backend
